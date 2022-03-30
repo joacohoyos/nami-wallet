@@ -11,7 +11,8 @@
     "build": "node utils/build.js",
     "start": "node utils/webserver.js",
     "prettier": "prettier --write '**/*.{js,jsx,css,html}'",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+    "ionic:serve": "react-app-rewired start"
   },
   "dependencies": {
     "@cardano-foundation/ledgerjs-hw-app-cardano": "^4.0.0",
@@ -105,6 +106,7 @@
     "jest": "^27.0.6",
     "node-sass": "^4.14.1",
     "prettier": "^2.2.1",
+    "react-app-rewired": "^2.2.1",
     "react-scripts": "5.0.0",
     "sass-loader": "^11.0.1",
     "source-map-loader": "^2.0.1",

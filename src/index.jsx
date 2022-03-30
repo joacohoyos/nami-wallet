@@ -2,8 +2,8 @@ import React from 'react';
 import { POPUP, POPUP_WINDOW, TAB } from './config/config';
 import { Scrollbars } from 'react-custom-scrollbars';
 import './ui/app/components/styles.css';
-import Theme from './ui/theme';
-import StoreProvider from './ui/store';
+import Theme from './ui/theme.jsx';
+import StoreProvider from './ui/store.jsx';
 import { Box, IconButton } from '@chakra-ui/react';
 import { ChevronUpIcon } from '@chakra-ui/icons';
 /* Core CSS required for Ionic components to work properly */

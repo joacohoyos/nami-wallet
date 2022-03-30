@@ -26,9 +26,9 @@ import {
   setPWD,
   isUpgrade,
 } from '../lib/migration';
-import ConfirmModal from './app/components/confirmModal';
-import { UpgradeModal } from './app/components/UpgradeModal';
-import { sendStore } from './app/pages/send';
+import ConfirmModal from './app/components/confirmModal.jsx';
+import { UpgradeModal } from './app/components/UpgradeModal.jsx';
+import { sendStore } from './app/pages/send.jsx';
 
 const settings = {
   settings: null,

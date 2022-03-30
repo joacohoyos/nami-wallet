@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { HW, STORAGE, TAB } from '../../../config/config';
-import Main from '../../index';
+import Main from '../../../index.jsx';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from 'react-dom';
 import {

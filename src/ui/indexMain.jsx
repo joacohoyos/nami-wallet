@@ -7,14 +7,14 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { POPUP } from '../config/config';
-import Main from './index';
+import Main from '../index.jsx';
 import { Spinner } from '@chakra-ui/spinner';
-import Welcome from './app/pages/welcome';
-import Wallet from './app/pages/wallet';
+import Welcome from './app/pages/welcome.jsx';
+import Wallet from './app/pages/wallet.jsx';
 import { getAccounts } from '../api/extension';
 import { Box } from '@chakra-ui/layout';
-import Settings from './app/pages/settings';
-import Send from './app/pages/send';
+import Settings from './app/pages/settings.jsx';
+import Send from './app/pages/send.jsx';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
 const App = () => {

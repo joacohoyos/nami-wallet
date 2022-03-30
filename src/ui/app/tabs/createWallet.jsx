@@ -34,7 +34,7 @@ import { CloseButton } from '@chakra-ui/close-button';
 import { Checkbox } from '@chakra-ui/checkbox';
 import { ChevronRightIcon, DownloadIcon } from '@chakra-ui/icons';
 import { render } from 'react-dom';
-import Main from '../../index';
+import Main from '../../../index.jsx';
 import { TAB } from '../../../config/config';
 import { Planet } from 'react-kawaii';
 import { useDropzone } from 'react-dropzone';
