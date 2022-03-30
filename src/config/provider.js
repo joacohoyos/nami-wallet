@@ -1,5 +1,5 @@
 import { NODE, NETWORK_ID } from './config';
-import secrets from 'secrets';
+import secrets from './secrets';
 import { version } from '../../package.json';
 
 export default {
@@ -10,8 +10,8 @@ export default {
     key: (network = 'mainnet') => ({
       project_id:
         network === NETWORK_ID.mainnet
-          ? secrets.PROJECT_ID_MAINNET
-          : secrets.PROJECT_ID_TESTNET,
+          ? 'testnetfv0PpRvYAZOHMyBMhU1PiWM5O1Z8D8yp'
+          : 'testnetfv0PpRvYAZOHMyBMhU1PiWM5O1Z8D8yp',
     }),
     price: (currency = 'usd') =>
       fetch(

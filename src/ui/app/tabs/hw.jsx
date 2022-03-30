@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { HARDENED } from '@cardano-foundation/ledgerjs-hw-app-cardano';
-import TrezorConnect from '../../../../temporary_modules/trezor-connect';
+import TrezorConnect from '../../../temporary_modules/trezor-connect';
 
 // assets
 import LogoOriginal from '../../../assets/img/logo.svg';

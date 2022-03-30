@@ -8,7 +8,7 @@ module.exports = {
     // blockfrost keys
     secrets: '../../secrets.testing.js',
   },
-  modulePathIgnorePatterns: ['<rootDir>/temporary_modules'],
+  modulePathIgnorePatterns: ['<rootDir>/src/temporary_modules'],
   transform: {
     '\\.[jt]sx?$': 'babel-jest',
   },

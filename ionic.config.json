@@ -1,0 +1,6 @@
+{
+  "name": "nami-wallet",
+  "integrations": {},
+  "type": "react",
+  "documentRoot": "src/ui"
+}

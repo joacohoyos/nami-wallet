@@ -9,13 +9,13 @@ class Loader {
      * @private
      */
     this._wasm = await import(
-      '../../temporary_modules/@emurgo/cardano-serialization-lib-browser'
+      '../temporary_modules/@emurgo/cardano-serialization-lib-browser'
     );
     /**
      * @private
      */
     this._wasm2 = await import(
-      '../../temporary_modules/@emurgo/cardano-message-signing-browser/emurgo_message_signing'
+      '../temporary_modules/@emurgo/cardano-message-signing-browser/emurgo_message_signing'
     );
   }
 

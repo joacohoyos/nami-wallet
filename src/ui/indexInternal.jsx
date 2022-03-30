@@ -8,6 +8,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import { IonApp, IonContent } from '@ionic/react';
 import { getAccounts } from '../api/extension';
 import { Messaging } from '../api/messaging';
 
@@ -68,11 +69,15 @@ const App = () => {
 };
 
 render(
-  <Main>
-    <Router>
-      <App />
-    </Router>
-  </Main>,
+  <IonApp>
+    <IonContent>
+      <Main>
+        <Router>
+          <App />
+        </Router>
+      </Main>
+    </IonContent>
+  </IonApp>,
   window.document.querySelector(`#${POPUP.internal}`)
 );
 
