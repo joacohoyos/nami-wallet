@@ -26,9 +26,9 @@ import {
   setPWD,
   isUpgrade,
 } from '../lib/migration';
-import ConfirmModal from './app/components/confirmModal.jsx';
-import { UpgradeModal } from './app/components/UpgradeModal.jsx';
-import { sendStore } from './app/pages/send.jsx';
+import ConfirmModal from './app/components/confirmModal';
+import { UpgradeModal } from './app/components/UpgradeModal';
+import { sendStore } from './app/pages/send';
 
 const settings = {
   settings: null,
@@ -91,15 +91,16 @@ const StoreInit = ({ children }) => {
   const refB = React.useRef();
 
   const init = async () => {
-    if (await needUpgrade()) {
-      await upgrade();
-    } else {
-      await initStore(state, actions);
-      setIsLoading(false);
-      if (info && info.length) {
-        refB.current.openModal();
-      }
+    // const need = await needUpgrade();
+    // if (await needUpgrade()) {
+    //   await upgrade();
+    // } else {
+    await initStore(state, actions);
+    setIsLoading(false);
+    if (info && info.length) {
+      refB.current.openModal();
     }
+    // }
   };
 
   const upgrade = async () => {

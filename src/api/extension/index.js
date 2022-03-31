@@ -1,3 +1,4 @@
+import { Storage } from '@capacitor/storage';
 import {
   ADA_HANDLE,
   APIError,
@@ -40,20 +41,20 @@ import AssetFingerprint from '@emurgo/cip14-js';
 import Web3Utils from 'web3-utils';
 import { milkomedaNetworks } from '@dcspark/milkomeda-constants';
 
-export const getStorage = (key) =>
-  new Promise((res, rej) =>
-    chrome.storage.local.get(key, (result) => {
-      if (chrome.runtime.lastError) rej(undefined);
-      res(key ? result[key] : result);
-    })
-  );
-export const setStorage = (item) =>
-  new Promise((res, rej) =>
-    chrome.storage.local.set(item, () => {
-      if (chrome.runtime.lastError) rej(chrome.runtime.lastError);
-      res(true);
-    })
-  );
+export const getStorage = async (key) => {
+  const val = await Storage.get({ key });
+  return JSON.parse(val.value);
+};
+
+export const setStorage = async (item) => {
+  const keys = Object.keys(item);
+  const key = keys[0];
+  let value = item[keys];
+  await Storage.set({
+    key,
+    value: JSON.stringify(value),
+  });
+};
 
 export const encryptWithPassword = async (password, rootKeyBytes) => {
   await Loader.load();
@@ -514,6 +515,7 @@ export const getAccounts = async () => {
   const accounts = await getStorage(STORAGE.accounts);
   const network = await getNetwork();
   for (const index in accounts) {
+    console.log(index, accounts[index], network);
     accounts[index] = await accountToNetworkSpecific(accounts[index], network);
   }
   return accounts;
@@ -1171,7 +1173,8 @@ export const requestAccountKey = async (password, accountIndex) => {
 
 export const resetStorage = async (password) => {
   await requestAccountKey(password, 0);
-  await new Promise((res, rej) => chrome.storage.local.clear(() => res()));
+
+  await new Promise((res, rej) => Storage.clear(() => res()));
   return true;
 };
 

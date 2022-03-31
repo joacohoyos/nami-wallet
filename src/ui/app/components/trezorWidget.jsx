@@ -48,14 +48,14 @@ const TrezorWidget = React.forwardRef((props, ref) => {
             color="black"
             zIndex={1}
           />
-          <Box rounded="3xl" overflow="hidden" background="white">
-            <iframe
-              src={chrome.runtime.getURL('Trezor/popup.html')}
-              id="trezorPopupNami"
-              width="360px"
-              height="560px"
-            />
-          </Box>
+          {/* <Box rounded="3xl" overflow="hidden" background="white"> */}
+          {/*   <iframe */}
+          {/*     src={chrome.runtime.getURL('Trezor/popup.html')} */}
+          {/*     id="trezorPopupNami" */}
+          {/*     width="360px" */}
+          {/*     height="560px" */}
+          {/*   /> */}
+          {/* </Box> */}
         </Box>
       </ModalContent>
     </Modal>

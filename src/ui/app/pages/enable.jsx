@@ -6,7 +6,7 @@ import React from 'react';
 import { setWhitelisted } from '../../../api/extension';
 import { APIError } from '../../../config/config';
 
-import Account from '../components/account.jsx';
+import Account from '../components/account';
 
 const Enable = ({ request, controller }) => {
   const background = useColorModeValue('gray.100', 'gray.700');

@@ -40,18 +40,7 @@ var options = {
   },
   mode: process.env.NODE_ENV || 'development',
   entry: {
-    mainPopup: path.join(__dirname, 'src', 'ui', 'indexMain.jsx'),
-    internalPopup: path.join(__dirname, 'src', 'ui', 'indexInternal.jsx'),
-    hwTab: path.join(__dirname, 'src', 'ui', 'app', 'tabs', 'hw.jsx'),
-    createWalletTab: path.join(
-      __dirname,
-      'src',
-      'ui',
-      'app',
-      'tabs',
-      'createWallet.jsx'
-    ),
-    background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
+    main: path.join(__dirname, 'src', 'index.jsx'),
     contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.js'),
     injected: path.join(__dirname, 'src', 'pages', 'Content', 'injected.js'),
   },
@@ -216,6 +205,12 @@ var options = {
       ),
       filename: 'createWalletTab.html',
       chunks: ['createWalletTab'],
+      cache: false,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'public', 'index.html'),
+      filename: 'index.html',
+      chunks: ['main'],
       cache: false,
     }),
   ],

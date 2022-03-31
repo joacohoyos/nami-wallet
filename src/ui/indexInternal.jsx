@@ -13,11 +13,11 @@ import { getAccounts } from '../api/extension';
 import { Messaging } from '../api/messaging';
 
 import { METHOD, POPUP } from '../config/config';
-import Enable from './app/pages/enable.jsx';
-import NoWallet from './app/pages/noWallet.jsx';
-import SignData from './app/pages/signData.jsx';
-import SignTx from './app/pages/signTx.jsx';
-import Main from '../index.jsx';
+import Enable from './app/pages/enable';
+import NoWallet from './app/pages/noWallet';
+import SignData from './app/pages/signData';
+import SignTx from './app/pages/signTx';
+import Main from './index';
 
 const App = () => {
   const controller = Messaging.createInternalController();

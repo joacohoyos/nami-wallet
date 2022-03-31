@@ -1,11 +1,6 @@
 import React from 'react';
-import { POPUP, POPUP_WINDOW, TAB } from './config/config';
-import { Scrollbars } from 'react-custom-scrollbars';
-import './ui/app/components/styles.css';
-import Theme from './ui/theme.jsx';
-import StoreProvider from './ui/store.jsx';
-import { Box, IconButton } from '@chakra-ui/react';
-import { ChevronUpIcon } from '@chakra-ui/icons';
+import ReactDOM from 'react-dom';
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -22,62 +17,134 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-const isMain = window.document.querySelector(`#${POPUP.main}`);
-const isTab = window.document.querySelector(`#${TAB.hw}`);
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Main from './index';
+// import { Spinner } from '@chakra-ui/spinner';
+import Welcome from './ui/app/pages/welcome';
+import Wallet from './ui/app/pages/wallet';
+import { getAccounts } from './api/extension';
+import { Box } from '@chakra-ui/layout';
+import Settings from './ui/app/pages/settings';
+import { IonReactRouter } from '@ionic/react-router';
+import {
+  IonApp,
+  IonPage,
+  IonContent,
+  IonButton,
+  IonHeader,
+  IonRouterOutlet,
+} from '@ionic/react';
+import Send from './ui/app/pages/send';
+import { useStoreActions, useStoreState } from 'easy-peasy';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import Theme from './ui/theme';
+import StoreProvider from './ui/store';
 
-const Main = ({ children }) => {
-  const [scroll, setScroll] = React.useState({ el: null, y: 0 });
-
-  React.useEffect(() => {
-    window.document.body.addEventListener(
-      'keydown',
-      (e) => e.key === 'Escape' && e.preventDefault()
-    );
-    // Windows is somehow not opening the popup with the right size. Dynamically changing it, fixes it for now:
-    if (navigator.userAgent.indexOf('Win') != -1 && !isMain && !isTab) {
-      const width =
-        POPUP_WINDOW.width + (window.outerWidth - window.innerWidth);
-      const height =
-        POPUP_WINDOW.height + (window.outerHeight - window.innerHeight);
-      window.resizeTo(width, height);
+const App = ({ history, children }) => {
+  const route = useStoreState((state) => state.globalModel.routeStore.route);
+  const setRoute = useStoreActions(
+    (actions) => actions.globalModel.routeStore.setRoute
+  );
+  const [isLoading, setIsLoading] = React.useState(true);
+  const init = async () => {
+    const hasWallet = await getAccounts();
+    if (hasWallet) {
+      history.push('/wallet');
+      // Set route from localStorage if available
+      if (route && route !== '/wallet') {
+        route
+          .slice(1)
+          .split('/')
+          .reduce((acc, r) => {
+            const fullRoute = acc + `/${r}`;
+            history.push(fullRoute);
+            return fullRoute;
+          }, '');
+      }
+    } else {
+      history.push('/welcome');
     }
+    setIsLoading(false);
+  };
+  React.useEffect(() => {
+    init();
+    history.listen(() => {
+      setRoute(history.location.pathname);
+    });
   }, []);
+
+  return <>{children}</>;
+};
+
+const CustomRoute = ({ children, ...props }) => {
   return (
-    <Box
-      width={isMain ? POPUP_WINDOW.width + 'px' : '100%'}
-      height={isMain ? POPUP_WINDOW.height + 'px' : '100vh'}
-    >
-      <Theme>
-        <StoreProvider>
-          <Scrollbars
-            id="scroll"
-            style={{ width: '100vw', height: '100vh' }}
-            autoHide
-            onScroll={(e) => {
-              setScroll({ el: e.target, y: e.target.scrollTop });
-            }}
-          >
-            {children}
-            {scroll.y > 1200 && (
-              <IconButton
-                onClick={() => {
-                  scroll.el.scrollTo({ behavior: 'smooth', top: 0 });
-                }}
-                position="fixed"
-                bottom="15px"
-                right="15px"
-                size="sm"
-                rounded="xl"
-                colorScheme="teal"
-                opacity={0.85}
-                icon={<ChevronUpIcon />}
-              ></IconButton>
-            )}
-          </Scrollbars>
-        </StoreProvider>
-      </Theme>
-    </Box>
+    <Route
+      {...props}
+      render={(props) => {
+        return <App {...props}>{children}</App>;
+      }}
+    />
   );
 };
 
-export default Main;
+const Routes = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet id="main">
+          <CustomRoute exact path="/">
+            <IonPage>
+              <IonHeader></IonHeader>
+              <IonContent>
+                <IonButton fill="clear">Start</IonButton>
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute exact path="/wallet">
+            <IonPage>
+              <IonHeader></IonHeader>
+              <IonContent>
+                <Wallet />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute exact path="/welcome">
+            <IonPage>
+              <IonHeader></IonHeader>
+              <IonContent>
+                <Welcome />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute path="/settings">
+            <IonPage>
+              <IonContent>
+                <Settings />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute exact path="/send">
+            <IonPage>
+              <IonContent>
+                <Send />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
+
+defineCustomElements(window);
+
+ReactDOM.render(
+  <Theme>
+    <StoreProvider>
+      <Routes />
+    </StoreProvider>
+  </Theme>,
+  document.getElementById('root')
+);
+
+// if (module.hot) module.hot.accept();
