@@ -144,8 +144,10 @@ const WalletModal = React.forwardRef((props, ref) => {
             <Button
               isDisabled={!accept}
               colorScheme="teal"
-              onClick={() => {onClose(); history.push('/wallet/create?type=generate')}}
-              // onClick={() => createTab(TAB.createWallet, `?type=generate`)}
+              onClick={() => {
+                onClose(); 
+                history.push('/generate?type=generate')
+              }}
             >
               Continue
             </Button>
