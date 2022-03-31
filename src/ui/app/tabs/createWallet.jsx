@@ -92,9 +92,9 @@ const App = () => {
         fontSize="sm"
       >
         <Switch>
-          <Route exact path="/generate" component={GenerateSeed} />
-          <Route exact path="/verify" component={VerifySeed} />
-          <Route exact path="/account" component={MakeAccount} />
+          {/* <Route exact path="/generate" component={GenerateSeed} /> */}
+          {/* <Route exact path="/verify" component={VerifySeed} /> */}
+          {/* <Route exact path="/account" component={MakeAccount} /> */}
           <Route exact path="/import" component={ImportSeed} />
         </Switch>
       </Box>
@@ -102,7 +102,47 @@ const App = () => {
   );
 };
 
-const GenerateSeed = (props) => {
+const ComponentWrapper = ({children}) => {
+  const Logo = useColorModeValue(LogoOriginal, LogoWhite);
+  const backgroundColor = useColorModeValue('gray.200', 'inherit');
+  const cardColor = useColorModeValue('white', 'gray.900');
+
+  return (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      width="full"
+      height="100vh"
+      position="relative"
+      background={backgroundColor}
+    >
+      {/* Logo */}
+      <Box position="absolute" left="40px" top="40px">
+        <Image draggable={false} src={Logo} width="36px" />
+      </Box>
+      <Box
+        rounded="2xl"
+        shadow="md"
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+        width="90%"
+        maxWidth="460px"
+        maxHeight="650px"
+        height="80vh"
+        p={10}
+        background={cardColor}
+        fontSize="sm"
+      >
+        {children}
+      </Box>
+    </Box>
+  );
+
+}
+export const GenerateSeed = (props) => {
   const history = useHistory();
   const [mnemonic, setMnemonic] = React.useState({});
   const generate = () => {
@@ -125,6 +165,7 @@ const GenerateSeed = (props) => {
   }, []);
 
   return (
+    <ComponentWrapper>
     <Box>
       <Text textAlign="center" fontWeight="bold" fontSize="xl">
         Seed Phrase
@@ -199,7 +240,7 @@ const GenerateSeed = (props) => {
           </Box>
         ))}
       </Stack>
-      {/* <Box h="3" />
+      <Box h="3" />
       <Box display="flex" justifyContent="center">
         {' '}
         <Button
@@ -217,7 +258,7 @@ const GenerateSeed = (props) => {
         >
           Download
         </Button>
-      </Box> */}
+      </Box>
 
       <Box height={3} />
       <Stack alignItems="center" direction="column">
@@ -237,10 +278,11 @@ const GenerateSeed = (props) => {
         </Button>
       </Stack>
     </Box>
+    </ComponentWrapper>
   );
 };
 
-const VerifySeed = () => {
+export const VerifySeed = () => {
   const history = useHistory();
   const mnemonic = history.location.mnemonic;
   const [input, setInput] = React.useState({});
@@ -263,6 +305,7 @@ const VerifySeed = () => {
   }, [input]);
 
   return (
+    <ComponentWrapper>
     <Box>
       <Text textAlign="center" fontWeight="bold" fontSize="xl">
         Verify Seed Phrase
@@ -368,6 +411,8 @@ const VerifySeed = () => {
         </Button>
       </Stack>
     </Box>
+    </ComponentWrapper>
+
   );
 };
 
@@ -589,7 +634,7 @@ const SeedDrop = ({ onLoad, ...props }) => {
   );
 };
 
-const MakeAccount = (props) => {
+export const MakeAccount = (props) => {
   const [state, setState] = React.useState({});
   const [loading, setLoading] = React.useState(false);
   const history = useHistory();
@@ -719,7 +764,7 @@ const MakeAccount = (props) => {
 
 const SuccessAndClose = () => {
   return (
-    <>
+    <ComponentWrapper>
       <Text
         mt={10}
         fontSize="x-large"
@@ -738,17 +783,18 @@ const SuccessAndClose = () => {
       <Button mt="auto" onClick={async () => window.close()}>
         Close
       </Button>
-    </>
+    </ComponentWrapper>
   );
 };
 
-render(
-  <Main>
-    <Router>
-      <App />
-    </Router>
-  </Main>,
-  window.document.querySelector(`#${TAB.createWallet}`)
-);
+// render(
+//   <Main>
+//     <Router>
+//       <App />
+//     </Router>
+//   </Main>,
+//   window.document.querySelector(`#${TAB.createWallet}`)
+// );
 
+export default App;
 if (module.hot) module.hot.accept();

@@ -23,7 +23,6 @@ import Main from './index';
 import Welcome from './ui/app/pages/welcome';
 import Wallet from './ui/app/pages/wallet';
 import { getAccounts } from './api/extension';
-import { Box } from '@chakra-ui/layout';
 import Settings from './ui/app/pages/settings';
 import { IonReactRouter } from '@ionic/react-router';
 import {
@@ -39,6 +38,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import Theme from './ui/theme';
 import StoreProvider from './ui/store';
+import CreateWallet, { GenerateSeed, MakeAccount, VerifySeed } from './ui/app/tabs/createWallet'
 
 const App = ({ history, children }) => {
   const route = useStoreState((state) => state.globalModel.routeStore.route);
@@ -105,6 +105,30 @@ const Routes = () => {
               <IonHeader></IonHeader>
               <IonContent>
                 <Wallet />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute exact path="/generate">
+            <IonPage>
+              <IonHeader></IonHeader>
+              <IonContent>
+                <GenerateSeed />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute exact path="/verify">
+            <IonPage>
+              <IonHeader></IonHeader>
+              <IonContent>
+                <VerifySeed />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute exact path="/account">
+            <IonPage>
+              <IonHeader></IonHeader>
+              <IonContent>
+                <MakeAccount />
               </IonContent>
             </IonPage>
           </CustomRoute>
