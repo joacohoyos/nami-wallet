@@ -54,7 +54,6 @@ const App = () => {
     const params = new URLSearchParams(window.location.search);
     const type = params.get('type');
     const length = params.get('length');
-    console.log("type: ", type)
     if (type === 'import')
       history.push({
         pathname: '/import',
