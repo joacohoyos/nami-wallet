@@ -54,6 +54,7 @@ const App = () => {
     const params = new URLSearchParams(window.location.search);
     const type = params.get('type');
     const length = params.get('length');
+    console.log("type: ", type)
     if (type === 'import')
       history.push({
         pathname: '/import',
@@ -102,7 +103,7 @@ const App = () => {
   );
 };
 
-const GenerateSeed = (props) => {
+export const GenerateSeed = (props) => {
   const history = useHistory();
   const [mnemonic, setMnemonic] = React.useState({});
   const generate = () => {
@@ -742,13 +743,14 @@ const SuccessAndClose = () => {
   );
 };
 
-render(
-  <Main>
-    <Router>
-      <App />
-    </Router>
-  </Main>,
-  window.document.querySelector(`#${TAB.createWallet}`)
-);
+// render(
+//   <Main>
+//     <Router>
+//       <App />
+//     </Router>
+//   </Main>,
+//   window.document.querySelector(`#${TAB.createWallet}`)
+// );
 
+export default App;
 if (module.hot) module.hot.accept();

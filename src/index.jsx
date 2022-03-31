@@ -39,6 +39,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import Theme from './ui/theme';
 import StoreProvider from './ui/store';
+import CreateWallet, { GenerateSeed } from './ui/app/tabs/createWallet'
 
 const App = ({ history, children }) => {
   const route = useStoreState((state) => state.globalModel.routeStore.route);
@@ -105,6 +106,22 @@ const Routes = () => {
               <IonHeader></IonHeader>
               <IonContent>
                 <Wallet />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute exact path="/wallet/create">
+            <IonPage>
+              <IonHeader></IonHeader>
+              <IonContent>
+                <CreateWallet />
+              </IonContent>
+            </IonPage>
+          </CustomRoute>
+          <CustomRoute exact path="/generate">
+            <IonPage>
+              <IonHeader></IonHeader>
+              <IonContent>
+                <GenerateSeed />
               </IonContent>
             </IonPage>
           </CustomRoute>

@@ -144,7 +144,8 @@ const WalletModal = React.forwardRef((props, ref) => {
             <Button
               isDisabled={!accept}
               colorScheme="teal"
-              onClick={() => createTab(TAB.createWallet, `?type=generate`)}
+              onClick={() => {onClose(); history.push('/wallet/create?type=generate')}}
+              // onClick={() => createTab(TAB.createWallet, `?type=generate`)}
             >
               Continue
             </Button>
@@ -235,12 +236,13 @@ const ImportModal = React.forwardRef((props, ref) => {
             <Button
               isDisabled={!select || !accept}
               colorScheme="teal"
-              onClick={() =>
-                createTab(
-                  TAB.createWallet,
-                  `?type=import&length=${parseInt(select)}`
-                )
-              }
+              // onClick={() =>
+              //   createTab(
+              //     TAB.createWallet,
+              //     `?type=import&length=${parseInt(select)}`
+              //   )
+              // }
+              onClick={() => console.log("create wallet")}
             >
               Continue
             </Button>
