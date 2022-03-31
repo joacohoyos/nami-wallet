@@ -592,7 +592,6 @@ export const createPopup = async (popup) => {
 };
 
 export const createTab = (tab, query = '') =>
-console.log("tab", tab, "query: ", query)  
 new Promise((res, rej) =>
     chrome.tabs.create(
       {
